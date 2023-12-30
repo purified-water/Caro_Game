@@ -15,7 +15,7 @@ module.exports = {
             console.log('New user: ', req.body);
             const encryptedPassword = bcrypt.hashSync(req.body.password, salt);
 
-            await userModel.add(req.body.username, req.body.fullname, encryptedPassword, req.body.avatar);
+            await userModel.add(req.body.username, req.body.fullname, encryptedPassword, '../public/images/default-avatar.png');
             res.redirect('/');
 
         } catch (error) {

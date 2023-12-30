@@ -13,20 +13,12 @@ module.exports = {
             let match = bcrypt.compareSync(req.body.password, passwordInDB);
 
             if (match) {
-                // req.session.uid = req.user.ID;
-                // req.session.un = req.body.un;
-                // req.session.pw = req.body.pw;
-                // if (req.body.rememberMe) {
-                //     req.session.cookie.maxAge = 30 * 24 * 60 * 60;
-                //     res.cookie('rememberedUsername', req.body.un, { maxAge: 2592000, httpOnly: true });
+                console.log('Dang nhap thanh cong');
 
-                // } else {
-                //     req.session.cookie.expires = false;
-                // }
-                // console.log('COOKIE', req.session.cookie);
-                res.redirect('/home');
-                // res.redirect('http://localhost:21588/');
+                // gửi username tới request page
+                res.redirect(`/request?username=${req.body.username}`);
             } else {
+                console.log('Dang nhap that bai');
                 res.redirect('/'); //Quay lai trang log in
             }
             

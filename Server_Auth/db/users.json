@@ -12,5 +12,26 @@
     "fullname": "22",
     "password": "$2b$10$m2nd.6yiyCfoh7p2S4yTEeScM5LsS7zxMhay.fZAwuJonNRTfzAIW",
     "avatar": "1"
+  },
+  {
+    "id": 3,
+    "username": "Hi",
+    "fullname": "hi",
+    "password": "$2b$10$U0HafozOGoEbmNxkfhMOcOr84boF6wjHPCwUIApig3M4oyu/xwft2",
+    "avatar": "133"
+  },
+  {
+    "id": 4,
+    "username": "test",
+    "fullname": "hi",
+    "password": "$2b$10$PCCO47CAvvWc.IvP7euv/ewY4N9Lxoi2omEwoxUVkFVYnxL.qutbu",
+    "avatar": "11"
+  },
+  {
+    "id": 5,
+    "username": "un1",
+    "fullname": "un1",
+    "password": "$2b$10$2KLvU52xZnDtabdNPaz/f.3VDvJjpTT274Ov8U.6D.GLA34nrmvC2",
+    "avatar": "../public/images/default.jpeg"
   }
 ]

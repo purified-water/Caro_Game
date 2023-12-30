@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 
 const usersFilePath = path.join(__dirname, '../db/users.json');
@@ -41,5 +43,14 @@ module.exports = {
             console.log(error);
         }
 
-    }
+    },
+    getUserByToken: async function(token) {
+        try {
+          const user = jwt.verify(token, process.env.SECRET_KEY);
+          return user;
+        } catch (err) {
+          return null;
+        }
+      }
+
 }

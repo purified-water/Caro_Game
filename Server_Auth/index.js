@@ -6,10 +6,10 @@ const handlebar = require('express-handlebars');
 const path = require('path');
 require('dotenv').config();
 const passport = require("passport");
-const server = require('http').createServer(app);
-
+// const server = require('http').createServer(app);
+const https = require('https')
 const port = process.env.PORT || 3000;
-
+const fs = require('fs');
 
 // Goi session
 app.use(session({
@@ -46,56 +46,30 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', async (req, res, next) => {
-    // res.render("logIn");
-    res.render("signUp");
+    res.render("logIn");
+    // res.render("signUp");
 })
-
-const logInRoute = require('./routers/logIn.r');
-app.use('/user', logInRoute);
-
 const signUpRoute = require('./routers/signUp.r');
 app.use('/signUp', signUpRoute);
 
-// const homeRoute = require('./routers/home.r');
-// app.use('/home', homeRoute);
+const logInRoute = require('./routers/logIn.r');
+app.use('/login', logInRoute);
 
-// // const categoryRoute = require('./routers/categories.r');
-// // app.use('/categories', categoryRoute);
+const requestRoute = require('./routers/request.r');
+app.use('/request', requestRoute);
 
-// // const productRoute = require('./routers/products.r');
-// // app.use('/products', productRoute);
-
-// const signOutRoute = require('./routers/signOut.r');
-// app.use('/signOut', signOutRoute);
+const profileRoute = require('./routers/profile.r');   
+app.use('/profile', profileRoute);
 
 
-// Chat socket io server
-// const io = require('socket.io')(server);
-// io.on('connection', client => {
-//     console.log('Connected to id: ', client.id);
+const myCredential = {
+    key: fs.readFileSync(path.join(__dirname, './cert/key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, './cert/cert.pem'))
+}
 
-//     unreadMessages[client.id] = 0;
-//     client.on('message', (message, userName) => {
-//         console.log('Message received from ', userName, ': ', message);
-//         unreadMessages[client.id] += 1;
-//         // Broadcast the message to all other clients
-//         io.emit('message', message, userName);
-
-//         io.to(client.id).emit('unreadCount', unreadMessages[client.id]);
-//     });
-
-//     client.on('disconnect', () => {
-//         console.log('A user disconnected');
-//       });
-// })
-
-app.get('/chat', (req, res) => {
-    // console.log('user chat', req.user);
-    res.render('chat', {userName: req.user.Name});
-})
-
+const server = https.createServer(myCredential, app);
 
 server.listen(port, () => {
-    console.log(`App listening on port http://localhost:${port}`)
+    console.log(`App listening on port https://localhost:${port}`)
 });
 
