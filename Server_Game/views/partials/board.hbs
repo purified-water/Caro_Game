@@ -1,0 +1,9 @@
+<div class="game-board" style="background-color: aqua; border: 2px solid darkblue;">
+    {{#each (range boardSize)}}
+        <div class="row">
+            {{#each (range ../boardSize)}}
+                <div class="cell"></div>
+            {{/each}}
+        </div>
+    {{/each}}
+</div>

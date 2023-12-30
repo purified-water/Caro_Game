@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"nodemon auth_index.js\" \"nodemon game_index.js\""
+    "start": "concurrently \"nodemon auth_index.js\" \"nodemon game_index.js\"",
+    "game": "nodemon game_index.js",
+    "oauth": "nodemon auth_index.js"
   },
   "keywords": [],
   "author": "",

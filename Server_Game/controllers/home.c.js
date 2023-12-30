@@ -1,12 +1,12 @@
 module.exports = {
     returnHome: async(req, res) => {
         // req.session.destroy();
-
-        res.redirect('/categories');
+        
+        res.redirect('/');
     },
 
     logout: async(req, res) => {
         req.session.destroy();
-        res.redirect('/');
+        res.redirect('/logIn');
     }
 }

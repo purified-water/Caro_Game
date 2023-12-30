@@ -9,6 +9,7 @@ const passport = require("passport");
 const server = require('http').createServer(app);
 
 const port = process.env.GAME_PORT || 3000;
+const helpers = require('./Server_Game/utils/helpers');
 
 
 // Goi session
@@ -34,8 +35,10 @@ app.engine(
     "hbs",
     handlebar.engine({
       extname: "hbs",
+    //   helpers,
     })
 );
+
 app.set('view engine', 'hbs');
 app.set('views', './Server_Game/views');
 
@@ -47,7 +50,8 @@ app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 
 app.get('/', async (req, res, next) => {
     // res.render("logIn");
-    res.render("logIn");
+    // res.render("logIn");
+    res.render('home', {roomid: '5'})
 })
 
 // const logInRoute = require('./routers/logIn.r');
@@ -59,8 +63,8 @@ app.get('/', async (req, res, next) => {
 // const homeRoute = require('./routers/home.r');
 // app.use('/home', homeRoute);
 
-// const signOutRoute = require('./routers/signOut.r');
-// app.use('/signOut', signOutRoute);
+const signOutRoute = require('./Server_Game/routers/signOut.r');
+app.use('/signOut', signOutRoute);
 
 
 // Chat socket io server
@@ -69,11 +73,11 @@ app.get('/', async (req, res, next) => {
 //     console.log('Connected to id: ', client.id);
 
 //     unreadMessages[client.id] = 0;
-//     client.on('message', (message, userName) => {
-//         console.log('Message received from ', userName, ': ', message);
+//     client.on('message', (message, username) => {
+//         console.log('Message received from ', username, ': ', message);
 //         unreadMessages[client.id] += 1;
 //         // Broadcast the message to all other clients
-//         io.emit('message', message, userName);
+//         io.emit('message', message, username);
 
 //         io.to(client.id).emit('unreadCount', unreadMessages[client.id]);
 //     });
@@ -85,11 +89,13 @@ app.get('/', async (req, res, next) => {
 
 app.get('/chat', (req, res) => {
     // console.log('user chat', req.user);
-    res.render('chat', {userName: req.user.Name});
+    res.render('chat', {username: req.user.Name});
 })
 
 
 server.listen(port, () => {
     console.log(`App listening on port http://localhost:${port}`)
 });
+
+// SỬA BOARD
 

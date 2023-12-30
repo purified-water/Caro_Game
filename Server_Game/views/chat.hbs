@@ -4,7 +4,7 @@
       <button class="btn btn-outline-primary me-2" id="back-btn" onclick="stopWW()">Mark as read</button>
       <p2 class="text-danger" id="chat-notification"></p2>
     </div>
-    <div class="message-container bg-secondary p-4">
+    <div class="message-container bg-light p-4">
       <ul id="message-list" class="list-group" style="text-decoration: none; height: 300px; overflow-y: scroll;">
         
       </ul>
@@ -22,7 +22,7 @@
         <button type="submit" class="btn btn-primary">Send</button>
       </form>
     </div>
-    <input type="hidden" id="user" value="{{userName}}">
+    <input type="hidden" id="user" value="{{username}}">
   </div>
   
   <script src="/socket.io/socket.io.js"></script>
@@ -66,8 +66,8 @@ $(document).ready(() => {
         const message = $('#message-input').val();
         if (message === '')
             return alert('Please type your message');
-        const userName = $('#user').val();
-        socket.emit('message', message, userName);
+        const username = $('#user').val();
+        socket.emit('message', message, username);
         $('#message-input').val('');
 
         startWW();
@@ -75,11 +75,11 @@ $(document).ready(() => {
         return false;
     });
 
-    socket.on('message', (msg, userName) => {
+    socket.on('message', (msg, username) => {
         $('#message-list').append(`
          <li>
            <div class="message-container d-flex align-items-center bg-white p-1 border border-1 mb-1" style="width: fit-content;">
-             <p class="fw-bold me-2 mb-0">${userName}: </p>
+             <p class="fw-bold me-2 mb-0">${username}: </p>
              <p class="m-0">${msg}</p>
            </div>
          </li>

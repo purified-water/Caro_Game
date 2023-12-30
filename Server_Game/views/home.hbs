@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Online users</h3>
+            <div class="container" style="height: 400px; overflow-y: scroll;">
+                <ul class="list-group" style="overflow-y: scroll;">
+                    <li class="list-group-item">username</li>
+                    <li class="list-group-item">username</li>
+                </ul>
+            </div>
+            <h3>Online games</h3>
+            <div class="container" style="height: 400px; overflow-y: hidden;">
+                <ul class="list-group" style="overflow-y: scroll;">
+                    <li class="list-group-item">
+                        <a href="#" style="text-decoration: none; color:black">Game1</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {{#if roomid}}
+                <input type="hidden" id="roomid" value="{{roomid}}" />
+                <h1>Room {{roomid}}</h1>
+            {{else}}
+                <h3>All Chat</h3>
+                <div class="container" id="chat-container">
+                    <div class="d-flex flex-row align-items-center mb-2">
+                    </div>
+                    <div class="message-container bg-light p-4">
+                        <ul
+                            id="message-list"
+                            class="list-group"
+                            style="text-decoration: none; height: 500px; overflow-y: scroll;"
+                        >
+                        </ul>
+                    </div>
+                    <div class="mb-3 d-flex d-row mt-2">
+                        <form class="d-flex d-row" id="commit-chat">
+                            <input
+                                type="text"
+                                class="form-control me-2"
+                                id="message-input"
+                                placeholder="Type your message"
+                            />
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                    <input type="hidden" id="user" value="{{username}}" />
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

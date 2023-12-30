@@ -1,0 +1,38 @@
+[
+    {
+        "roomid": "1",
+        "player1": {
+            "username": "un1",
+            "moves": [
+                {
+                    "move": "3"
+                },
+                {
+                    "move": "5"
+                },
+                {
+                    "move": "7"
+                }
+
+            ]
+        },
+        "player2": {
+            "username": "un2",
+            "moves": [
+                {
+                    "move": "1"
+                },
+                {
+                    "move": "2"
+                },
+                {
+                    "move": "9"
+                }
+
+            ]
+        },
+        
+        "winner": "un1" 
+    }
+    
+]

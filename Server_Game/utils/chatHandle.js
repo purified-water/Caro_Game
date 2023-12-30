@@ -40,8 +40,8 @@ function handleChat() {
             alert('Please type your message');
             return;
         }
-        const userName = document.getElementById('user').value;
-        socket.emit('message', message, userName);
+        const username = document.getElementById('user').value;
+        socket.emit('message', message, username);
         document.getElementById('message-input').value = '';
 
         startWW();
@@ -49,12 +49,12 @@ function handleChat() {
         return false;
     });
 
-    socket.on('message', function (msg, userName) {
+    socket.on('message', function (msg, username) {
         const messageList = document.getElementById('message-list');
         const listItem = document.createElement('li');
         listItem.innerHTML = `
             <div class="message-container d-flex align-items-center bg-white p-1 border border-1 mb-1" style="width: fit-content;">
-                <p class="fw-bold me-2 mb-0">${userName}: </p>
+                <p class="fw-bold me-2 mb-0">${username}: </p>
                 <p class="m-0">${msg}</p>
             </div>
         `;
@@ -107,8 +107,8 @@ handleChat();
 //         const message = $('#message-input').val();
 //         if (message === '')
 //             return alert('Please type your message');
-//         const userName = $('#user').val();
-//         socket.emit('message', message, userName);
+//         const username = $('#user').val();
+//         socket.emit('message', message, username);
 //         $('#message-input').val('');
 
 //         startWW();
@@ -116,11 +116,11 @@ handleChat();
 //         return false;
 //     });
 
-//     socket.on('message', (msg, userName) => {
+//     socket.on('message', (msg, username) => {
 //         $('#message-list').append(`
 //         <li>
 //             <div class="message-container d-flex align-items-center bg-white p-1 border border-1 mb-1" style="width: fit-content;">
-//             <p class="fw-bold me-2 mb-0">${userName}: </p>
+//             <p class="fw-bold me-2 mb-0">${username}: </p>
 //             <p class="m-0">${msg}</p>
 //             </div>
 //         </li>

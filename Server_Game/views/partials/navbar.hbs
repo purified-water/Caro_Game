@@ -1,0 +1,25 @@
+<div class="col-12 m-2">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light ps-2">
+    <a class="navbar-brand p-0 fs-16" href="/home">Home</a>
+     <form action="/leaderboard" method="post" class="mb-0 me-2">
+      <button type="submit" class="btn btn-outline-warning">Leaderboard</button>
+    </form>
+    <form action="/createGame" method="post" class="mb-0 me-2">
+      <button type="submit" class="btn btn-outline-primary">New game</button>
+    </form>
+   
+   
+    <form
+      action="/signOut"
+      class="d-flex align-items-end ms-auto me-3 mb-0"
+      method="get"
+    >
+       <h4 class="mb-0 me-4">Welcome, {{username}}</h4>
+      <button type="submit" class="btn btn-outline-success">Sign out</button>
+      <a href="/chat" class="btn btn-outline-info ms-2">Chat</a>
+
+    </form>
+
+  </nav>
+</div>

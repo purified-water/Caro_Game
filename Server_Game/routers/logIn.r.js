@@ -4,19 +4,6 @@ const router = express.Router();
 const passport = require('passport')
 
 const loginController = require('../controllers/logIn.c');
-
-// router.post('/', loginController.logIn);
-// router.post('/', passport.authenticate('myStrategy', (req, res) => {
-//     console.log("REQ", req);
-//     console.log(res);
-//     return res.redirect('/categories');
-// }))
-router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
-router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: '/categories/google',
-    failureRedirect: '/'
-    }
-));
 router.post('/', (req, res, next) => {
     passport.authenticate('myStrategy', (err, user, info) => {
         if (err) {
