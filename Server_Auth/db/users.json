@@ -1,0 +1,16 @@
+[
+  {
+    "newId": 1,
+    "username": "Tuan",
+    "fullname": "123",
+    "password": "$2b$10$Ol7CbMMcf.yyngMCZWT.7OmAC0pTwzYzQFIA1GivBDdIbWivXQKIa",
+    "avatar": "1"
+  },
+  {
+    "newId": 2,
+    "username": "22",
+    "fullname": "22",
+    "password": "$2b$10$m2nd.6yiyCfoh7p2S4yTEeScM5LsS7zxMhay.fZAwuJonNRTfzAIW",
+    "avatar": "1"
+  }
+]
