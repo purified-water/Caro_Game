@@ -8,7 +8,7 @@ require('dotenv').config();
 const passport = require("passport");
 // const server = require('http').createServer(app);
 const https = require('https')
-const port = process.env.PORT || 3000;
+const port = process.env.AUTH_PORT || 3000;
 const fs = require('fs');
 
 // Goi session
@@ -23,8 +23,8 @@ app.use(session({
 
 // require('./middlewares/passport')(app);
 
-app.use('/css', express.static(__dirname + '/../css'));
-app.use('/js', express.static(__dirname + '/../_js'));
+// app.use('/css', express.static(__dirname + '/../css'));
+// app.use('/js', express.static(__dirname + '/../_js'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -37,10 +37,10 @@ app.engine(
     })
 );
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', './Server_Auth/views');
 
 // Them de ket noi public voi views
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, '/Server_Auth/public')));
 
 
 
@@ -49,16 +49,16 @@ app.get('/', async (req, res, next) => {
     res.render("logIn");
     // res.render("signUp");
 })
-const signUpRoute = require('./routers/signUp.r');
+const signUpRoute = require('./Server_Auth/routers/signUp.r');
 app.use('/signUp', signUpRoute);
 
-const logInRoute = require('./routers/logIn.r');
+const logInRoute = require('./Server_Auth/routers/logIn.r');
 app.use('/login', logInRoute);
 
-const requestRoute = require('./routers/request.r');
+const requestRoute = require('./Server_Auth/routers/request.r');
 app.use('/request', requestRoute);
 
-const profileRoute = require('./routers/profile.r');   
+const profileRoute = require('./Server_Auth/routers/profile.r');   
 app.use('/profile', profileRoute);
 
 

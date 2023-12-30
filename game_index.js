@@ -23,8 +23,8 @@ app.use(session({
 
 // require('./middlewares/passport')(app);
 
-app.use('/css', express.static(__dirname + '/../css'));
-app.use('/js', express.static(__dirname + '/../_js'));
+// app.use('/css', express.static(__dirname + '/../css'));
+// app.use('/js', express.static(__dirname + '/../_js'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -37,10 +37,10 @@ app.engine(
     })
 );
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', './Server_Game/views');
 
 // Them de ket noi public voi views
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 
 
 
@@ -58,12 +58,6 @@ app.get('/', async (req, res, next) => {
 
 // const homeRoute = require('./routers/home.r');
 // app.use('/home', homeRoute);
-
-// // const categoryRoute = require('./routers/categories.r');
-// // app.use('/categories', categoryRoute);
-
-// // const productRoute = require('./routers/products.r');
-// // app.use('/products', productRoute);
 
 // const signOutRoute = require('./routers/signOut.r');
 // app.use('/signOut', signOutRoute);
