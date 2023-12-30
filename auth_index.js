@@ -70,6 +70,6 @@ const myCredential = {
 const server = https.createServer(myCredential, app);
 
 server.listen(port, () => {
-    console.log(`App listening on port https://localhost:${port}`)
+    console.log(`Auth Server is running on https://localhost:${port}`)
 });
 

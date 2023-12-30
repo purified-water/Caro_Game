@@ -51,7 +51,11 @@ app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 app.get('/', async (req, res, next) => {
     // res.render("logIn");
     // res.render("logIn");
-    res.render('home', {roomid: '5'})
+    const cookie = req.cookies;
+    console.log('\tCookies in game', cookie);
+    const username = req.cookies.username || 'empty';
+    const accessToken = req.cookies.accessToken || 'empty';
+    res.render('home', {username: username, accessToken: accessToken, roomid: '5'})
 })
 
 // const logInRoute = require('./routers/logIn.r');
@@ -94,7 +98,7 @@ app.get('/chat', (req, res) => {
 
 
 server.listen(port, () => {
-    console.log(`App listening on port http://localhost:${port}`)
+    console.log(`Game Server running on http://localhost:${port}`)
 });
 
 // SỬA BOARD

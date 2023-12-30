@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-4" style="width: 600px;">
   <div class="card">
     <h5 class="card-header">User Profile</h5>
     <div class="card-body">
@@ -10,7 +10,7 @@
           style="width: 150px; height: 150px; object-fit: cover;"
         />
       </div>
-      <form>
+      <form action="/profile/edit" method="get">
         <div class="mb-3">
           <label for="username" class="form-label">Username:</label>
           <input
@@ -41,12 +41,15 @@
             readonly
           />
         </div>
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="editButton"
-          onclick="enableEditMode()"
-        >Edit Profile</button>
+        <div class="d-flex justify-content-center">
+          <button
+            type="submit"
+            class="btn btn-primary me-2"
+            id="editButton"
+          >Edit Profile</button>
+          <a href="http://localhost:21588/" class="btn btn-secondary">Back</a>
+        </div>
+
       </form>
     </div>
   </div>

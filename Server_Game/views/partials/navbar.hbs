@@ -12,14 +12,24 @@
    
     <form
       action="/signOut"
-      class="d-flex align-items-end ms-auto me-3 mb-0"
+      class="d-flex align-items-center justify-content-end ms-auto me-3 mb-0"
       method="get"
     >
        <h4 class="mb-0 me-4">Welcome, {{username}}</h4>
       <button type="submit" class="btn btn-outline-success">Sign out</button>
-      <a href="/chat" class="btn btn-outline-info ms-2">Chat</a>
 
     </form>
+     <form
+      action="https://localhost:3003/profile"
+      class="d-flex align-items-center justify-content-end ms-auto me-3 mb-0"
+      method="post"
+    >
+      <input type="hidden" name="username" value="{{username}}">
+      <input type="hidden" name="accessToken" value="{{accessToken}}">
+      <button class="btn btn-outline-info ms-2">Profile</button>
+      
+    </form>
+
 
   </nav>
 </div>

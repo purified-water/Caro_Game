@@ -14,9 +14,9 @@ module.exports = {
 
             if (match) {
                 console.log('Dang nhap thanh cong');
-
+                console.log('fullname trong login', query.fullname);
                 // gửi username tới request page
-                res.redirect(`/request?username=${req.body.username}`);
+                res.redirect(`/request?username=${req.body.username}&fullname=${query.fullname}`);
             } else {
                 console.log('Dang nhap that bai');
                 res.redirect('/'); //Quay lai trang log in

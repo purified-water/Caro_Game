@@ -2,14 +2,14 @@
   <h1 class="text-center">Lựa chọn thời gian giới hạn: </h1>
   <form action="/request" method="post">
     <div class="mb-5 mt-5">
-      <select class="form-select d-block m-auto" name="maxage" required>
-        <option value="1800" selected>30 phút</option>
-        <option value="3600">1 giờ</option>
-        <option value="43200">12 giờ</option>
-        <option value="86400">1 ngày</option>
-        <option value="259200">3 ngày</option>
+      <select class="form-select d-block m-auto" style="width: 200px; height:fit-content" name="maxage" required>
+        <option value="15m" selected>15 phút</option>
+        <option value="30m">30 phút</option>
+        <option value="1h">1 giờ</option>
+        <option value="12h">12 giờ</option>
       </select>
       <input type="hidden" name="username" value="{{username}}" />
+      <input type="input" name="fullname" value="{{fullname}}" />
     </div>
     <button type="submit" class="btn btn-primary">Confirm</button>
   </form>
