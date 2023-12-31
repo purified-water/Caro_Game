@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const userModel = require('../models/users.m');
 const gameController = require('../controllers/game.c');
 // const authenticate = require('../middlewares/authentication')
 

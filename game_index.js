@@ -61,6 +61,7 @@ app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 
 
 require('./Server_Game/middlewares/passport')(app);
+const io = new Server(server);
 
 const authRoute = require('./Server_Game/routers/auth.r')();
 app.use('/', authRoute);
@@ -77,12 +78,10 @@ const signOutRoute = require('./Server_Game/routers/signOut.r');
 app.use('/signOut', signOutRoute);
 
 
-// Chat socket io server
-// const io = require('socket.io')(server);
+
 // io.on('connection', client => {
 //     console.log('Connected to id: ', client.id);
 
-//     unreadMessages[client.id] = 0;
 //     client.on('message', (message, username) => {
 //         console.log('Message received from ', username, ': ', message);
 //         unreadMessages[client.id] += 1;
@@ -96,12 +95,6 @@ app.use('/signOut', signOutRoute);
 //         console.log('A user disconnected');
 //       });
 // })
-const io = new Server(server);
-
-app.get('/chat', (req, res) => {
-    // console.log('user chat', req.user);
-    res.render('chat', { username: req.user.Name });
-})
 
 
 server.listen(port, () => {

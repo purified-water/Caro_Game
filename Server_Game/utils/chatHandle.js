@@ -1,37 +1,12 @@
 // Worker
 let worker;
-
-function startWW() {
-    worker = new Worker('/js/worker.js');
-
-    alert('Worker created');
-    
-    worker.onmessage = function (e) {
-        alert('Message received from worker');
-        console.log(e.data);
-        alert(`${e.data} unread messages`);
-
-        document.getElementById('chat-notification').innerText = `You have ${e.data} unread messages`;
-    };
-}
-
-function stopWW() {
-    alert('Stop WW');
-    if (worker) {
-        worker.terminate();
-        worker = undefined;
-        document.getElementById('chat-notification').innerText = '';
-    }
-}
-
 function handleChat() {
-    console.log('DDDMDMMDMD');
     function scrollToBottom() {
         var container = document.getElementById('message-list');
         container.scrollTop = container.scrollHeight;
     }
 
-    const socket = io('http://localhost:3000');
+    const socket = io();
 
     document.getElementById('commit-chat').addEventListener('submit', function (e) {
         e.preventDefault();
