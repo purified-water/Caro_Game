@@ -2,8 +2,8 @@
   {
     "id": 1,
     "username": "un1",
-    "fullname": "user1",
-    "password": "$2b$10$2KLvU52xZnDtabdNPaz/f.3VDvJjpTT274Ov8U.6D.GLA34nrmvC2",
+    "fullname": "fulluser111",
+    "password": "********",
     "avatar": "../public/images/default.jpeg"
   },
   {
