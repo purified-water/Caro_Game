@@ -16,3 +16,54 @@
     margin: 0;
     overflow-y: auto;
 }
+
+:root {
+    --blue: #4688b9;
+    --winning-blocks: #fcf63b;
+}
+#board{
+    display: flex;
+    justify-content: space-around;
+    border-radius: 0.2rem;
+    margin-bottom: 200px;
+}
+#gameboard{
+    --size: 7rem;
+    --gap: 0.2rem;
+
+    box-sizing: unset;
+    padding: var(--gap);
+    display: grid;
+    grid-template-columns: repeat(3, var(--size));
+    grid-template-rows: repeat(3, var(--size));
+    gap: 0.2rem;
+    width: calc(var(--size) * 3 + var(--gap) * 2);
+    height: calc(var(--size) * 3 + var(--gap) * 2);
+    background-color: var(--blue);
+}
+  
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: black;
+    background: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover {
+        background-color: rgba(245, 243, 204, 0.9);
+        box-shadow: 1px 1px 2px #ccc;
+    }
+    &.active {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+.square:nth-child(3n) {
+    border-right: none;
+}
+.square:nth-child(6) ~ .square {
+    border-bottom: none;
+}
+  

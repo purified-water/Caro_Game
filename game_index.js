@@ -24,8 +24,8 @@ app.use(session({
 
 // require('./middlewares/passport')(app);
 
-// app.use('/css', express.static(__dirname + '/../css'));
-// app.use('/js', express.static(__dirname + '/../_js'));
+app.use('/css', express.static(__dirname + '/Server_Game/public/css'));
+app.use('/js', express.static(__dirname + '/Server_Game/public/js'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -48,15 +48,19 @@ app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 
 
 
-app.get('/', async (req, res, next) => {
-    // res.render("logIn");
-    // res.render("logIn");
-    const cookie = req.cookies;
-    console.log('\tCookies in game', cookie);
-    const username = req.cookies.username || 'empty';
-    const accessToken = req.cookies.accessToken || 'empty';
-    res.render('home', {username: username, accessToken: accessToken, roomid: '5'})
-})
+// app.get('/', async (req, res, next) => {
+//     // res.render("logIn");
+//     // res.render("logIn");
+//     const cookie = req.cookies;
+//     console.log('\tCookies in game', cookie);
+//     const username = req.cookies.username || 'empty';
+//     const accessToken = req.cookies.accessToken || 'empty';
+//     // res.render('home', {username: username, accessToken: accessToken, roomid: '5'})
+//     res.render('gameroom', {username: username, accessToken: accessToken, roomid: '5'})
+// })
+
+const gameRoute = require('./Server_Game/routers/game.r');
+app.use('/', gameRoute);
 
 // const logInRoute = require('./routers/logIn.r');
 // app.use('/user', logInRoute);
@@ -67,8 +71,8 @@ app.get('/', async (req, res, next) => {
 // const homeRoute = require('./routers/home.r');
 // app.use('/home', homeRoute);
 
-const signOutRoute = require('./Server_Game/routers/signOut.r');
-app.use('/signOut', signOutRoute);
+// const signOutRoute = require('./Server_Game/routers/signOut.r');
+// app.use('/signOut', signOutRoute);
 
 
 // Chat socket io server
