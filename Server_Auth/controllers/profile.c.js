@@ -1,5 +1,7 @@
 const { getByUN } = require('../models/users.m');
 const userModel = require('../models/users.m');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 async function renderProfile(req, res) {
     const accessToken = req.cookies.accessToken || "";
@@ -47,8 +49,11 @@ async function postUpdateProfile(req, res) {
     const accessToken = req.body.accessToken || "";
     // console.log('Post update profile body', req.body);
     const { username, fullname, password } = req.body;
+    const encryptedPassword = bcrypt.hashSync(password, saltRounds);
+
+
     if (username) {
-        await userModel.update(username, fullname, password);
+        await userModel.update(username, fullname, encryptedPassword);
         res.redirect(`/profile`);
     } else {
         console.log('Error in postUpdateProfile');

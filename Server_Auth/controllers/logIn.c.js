@@ -19,6 +19,7 @@ module.exports = {
                 res.redirect(`/request?username=${req.body.username}&fullname=${query.fullname}`);
             } else {
                 console.log('Dang nhap that bai');
+                alert('Dang nhap that bai');
                 res.redirect('/'); //Quay lai trang log in
             }
             

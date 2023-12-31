@@ -72,9 +72,23 @@ module.exports = class User {
         }
     }
 
-    // static async removePlayerFromOnlineList(username) {
-    //     await db.removePlayerFromOnlineList(username);
-    // }
+    static async removePlayerFromOnlineList(username) {
+        const users = require(onlineUsersPath);
+        // console.log('Users from online list: ', users);
+        
+        // Find the user with the specified username
+        const data = users.find((user) => user && user.username === username);
+    
+        if (data) {
+            // User found, remove the user
+            const index = users.indexOf(data);
+            users.splice(index, 1);
+            fs.writeFileSync(onlineUsersPath, JSON.stringify(users, null, 2));
+        } else {
+            console.log('User not found in the online list:', username);
+            // You may want to handle this case according to your requirements
+        }
+    }
 
     // static getPlayerOnlineList() {
     //     return db.getPlayerOnlineList();

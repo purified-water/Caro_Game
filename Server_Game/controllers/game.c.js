@@ -1,9 +1,15 @@
+const path = require("path");
+const userModel = require('../models/users.m')
+const onlineUsersPath = path.join(__dirname, '../db/onlineUsers.json');
+
+let onlineUsers = require(onlineUsersPath);
 module.exports = {
     renderHome: async(req, res) => {
         // req.session.destroy();
         // TO DO: Get online users and online rooms
         const cookie = req.cookies;
-        res.render('home');
+        // console.log('Online users: ', onlineUsers);
+        res.render('home', {onlineUsers: onlineUsers, cookie: cookie});
     },
     renderGame: async(req, res) => {
 
@@ -19,6 +25,7 @@ module.exports = {
     },
 
     logout: async(req, res) => {
+        await userModel.removePlayerFromOnlineList(req.cookies.username);
         res.clearCookie('accessToken');
         res.clearCookie('username');
         res.clearCookie('fullname');

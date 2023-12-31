@@ -6,7 +6,10 @@ const handlebar = require('express-handlebars');
 const path = require('path');
 require('dotenv').config();
 const passport = require("passport");
-const server = require('http').createServer(app);
+const { Server } = require("socket.io");
+const http = require("http");
+const server = http.createServer(app);
+
 
 const port = process.env.GAME_PORT || 3000;
 const helpers = require('./Server_Game/utils/helpers');
@@ -56,16 +59,6 @@ app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 
 
 
-// app.get('/', async (req, res, next) => {
-//     // res.render("logIn");
-//     // res.render("logIn");
-//     const cookie = req.cookies;
-//     console.log('\tCookies in game', cookie);
-//     const username = req.cookies.username || 'empty';
-//     const accessToken = req.cookies.accessToken || 'empty';
-//     // res.render('home', {username: username, accessToken: accessToken, roomid: '5'})
-//     res.render('gameroom', {username: username, accessToken: accessToken, roomid: '5'})
-// })
 
 require('./Server_Game/middlewares/passport')(app);
 
@@ -79,14 +72,6 @@ console.log('Authorize called');
 const gameRoute = require('./Server_Game/routers/game.r');
 app.use('/', gameRoute);
 
-// const logInRoute = require('./routers/logIn.r');
-// app.use('/user', logInRoute);
-
-// const signUpRoute = require('./routers/signUp.r');
-// app.use('/signUp', signUpRoute);
-
-// const homeRoute = require('./routers/home.r');
-// app.use('/home', homeRoute);
 
 const signOutRoute = require('./Server_Game/routers/signOut.r');
 app.use('/signOut', signOutRoute);
@@ -111,6 +96,7 @@ app.use('/signOut', signOutRoute);
 //         console.log('A user disconnected');
 //       });
 // })
+const io = new Server(server);
 
 app.get('/chat', (req, res) => {
     // console.log('user chat', req.user);
@@ -122,5 +108,5 @@ server.listen(port, () => {
     console.log(`Game Server running on http://localhost:${port}`)
 });
 
-// SỬA BOARD
+
 

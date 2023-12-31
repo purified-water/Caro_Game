@@ -4,8 +4,10 @@
       <h3>Online users</h3>
       <div class="container" style="height: 400px; overflow-y: scroll;">
         <ul class="list-group" style="overflow-y: scroll;">
-          <li class="list-group-item">username</li>
-          <li class="list-group-item">username</li>
+          {{#each onlineUsers}}
+           <li class="list-group-item">{{this.username}}</li>
+          {{/each}}
+         
         </ul>
       </div>
       <h3>Online games</h3>

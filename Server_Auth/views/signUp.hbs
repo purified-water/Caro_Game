@@ -43,9 +43,43 @@
         <button type="submit" class="btn btn-primary btn-block mt-5">
            Sign up
         </button>
+        <a href="https://localhost:3003/" class="btn btn-secondary btn-block mt-5">
+          Sign in</a>
       </form>
 
       
     </div>
   </div>
 </div>
+<script>
+  const form_signUp = document.querySelector("#form_signUp");
+  form_signUp.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = form_signUp.username.value;
+    const fullname = form_signUp.fullname.value;
+    const password = form_signUp.password.value;
+    const data = {
+      username,
+      fullname,
+      password,
+    };
+    fetch("/signUp/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Sign up successfully");
+          res.redirect('https://localhost:3003/');
+        } else {
+          alert("Sign up failed");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+</script>

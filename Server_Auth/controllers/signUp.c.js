@@ -10,14 +10,17 @@ module.exports = {
             // console.log(error);
         }
     },
-    signUp: async(req, res, next) => {
+    signUp: async (req, res, next) => {
         try {
             // console.log('New user: ', req.body);
-            const encryptedPassword = bcrypt.hashSync(req.body.password, salt);
-
-            await userModel.add(req.body.username, req.body.fullname, encryptedPassword, '../public/images/default-avatar.png');
-            res.redirect('/');
-
+            const user = await userModel.getByUN(req.body.username);
+            if (user && req.body.username === user.username) {
+                res.status(400).json({ message: 'Username already exists' });
+            } else {
+                const encryptedPassword = bcrypt.hashSync(req.body.password, salt);
+                await userModel.add(req.body.username, req.body.fullname, encryptedPassword, '../public/images/default-avatar.png');
+                res.redirect('/');
+            }
         } catch (error) {
             console.log(error);
         }
