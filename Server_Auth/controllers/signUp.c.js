@@ -7,12 +7,12 @@ module.exports = {
         try {
             res.render('signUp');
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     },
     signUp: async(req, res, next) => {
         try {
-            console.log('New user: ', req.body);
+            // console.log('New user: ', req.body);
             const encryptedPassword = bcrypt.hashSync(req.body.password, salt);
 
             await userModel.add(req.body.username, req.body.fullname, encryptedPassword, '../public/images/default-avatar.png');

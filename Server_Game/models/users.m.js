@@ -1,66 +1,86 @@
-// const tbName = 'Users';
-module.exports = {
-    // constructor(un, pw){
-    //     this.Username = un;
-    //     this.Password = pw;
-    // }
-    getUsersCount: async function() {
-        try {
-            const query = await db.one(`select count(*) from public."Users"`);
-            const rs = parseInt(query.count, 10);
-            if (isNaN(rs)) {
-                return 0;
-            }
-            return rs;
-        } catch (error) {
-            console.log(error);
-        }
+const path = require("path");
+const onlineUsersPath = path.join(__dirname, "../db/onlineUsers.json");
+const usersPath = path.join(__dirname, "../db/users.json");
+const fs = require('fs');
 
+module.exports = class User {
+    constructor(user) {
+        this.username = user.username;
+        this.fullname = user?.fullname || "No display";
+        this.avatar = user?.avatar || "";
 
-    },
-
-    add: async function(un, pw, name, em, dob, per) {
-        try {
-            const newID = await this.getUsersCount() + 1;
-            console.log('ID NEW', newID);
-            const rs = await db.none(`INSERT INTO public."Users" ("ID", "Username", "Password", "Name", "Email", "DOB", "Permission") 
-            VALUES ($1, $2, $3, $4, $5, $6, $7)`,[newID, un, pw, name, em, dob, per]);
-            
-        } catch (error) {
-            console.log(error);
-        }
-        
-    },
-
-    getByMail: async function(mail) {
-        try {
-            const rs = await db.one(`SELECT * FROM public."Users" WHERE "Email" = $1`, [mail]);
-            return rs;
-        } catch (error) {
-            console.log(error);
-        }
-      
-    },
-    getByID: async function(id) {
-        try {
-            const rs = await db.query(`SELECT * FROM public."Users" WHERE "id" = $1`, [id]);
-            return rs;
-        } catch (error) {
-            console.log(error);
-        }
-      
-    },
-    getByUN: async function(un) {
-        try {
-            const rs = await db.query(`SELECT * FROM public."Users" WHERE "Username" = $1`, [un]);
-            if (rs.length > 0) {
-                const firstEntry = rs[0];
-                return firstEntry;
-            }
-            return rs;
-        } catch (error) {
-            console.log(error);
-        }
-      
     }
-}
+
+    static getEntity(user) {
+        const entity = {
+            username: user.username,
+            fullname: user.fullname,
+            avatar: user.avatar,
+        };
+        return entity;
+    }
+
+    static getPlayerInfos(username) {
+        const users = require(onlineUsersPath);
+        // console.log('Playerinfos: ', users);
+        const data = users.find((user) =>user && user.username === username);
+        if (data) {
+            return new User(data);
+        } else {
+            return null;
+        }
+    }
+
+
+    static async insertOrUpdatePlayer(username) {
+        const users = require(onlineUsersPath);
+        const data = users.find((user) => user && user.username === username);
+        
+        if (data) {
+            await this.insertPlayer(data);
+        } else {
+            await this.insertPlayer(data);
+        }
+    }
+    static async insertPlayer(entity) {
+        const users = require(onlineUsersPath);
+        users.push(entity);
+        fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+    }
+    static async updatePlayer(entity) {
+        const users = require(onlineUsersPath);
+        const index = users.findIndex((user) =>user && user.username === entity.username);
+        users[index] = entity;
+        fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+    }
+
+    static async insertPlayerToOnlineList(userI) {
+        const users = require(onlineUsersPath);
+        // console.log('Users from online list: ', users);
+        
+        // Find the user with the specified username
+        const data = users.find((user) => user && user.username === userI.username);
+    
+        if (!data) {
+            // User not found, push the new user
+            users.push(userI);
+            fs.writeFileSync(onlineUsersPath, JSON.stringify(users, null, 2));
+            console.log('User added to online list:', userI);
+        } else {
+            console.log('User with the same username already exists in the online list:', userI);
+            // You may want to handle this case according to your requirements
+        }
+    }
+
+    // static async removePlayerFromOnlineList(username) {
+    //     await db.removePlayerFromOnlineList(username);
+    // }
+
+    // static getPlayerOnlineList() {
+    //     return db.getPlayerOnlineList();
+    // }
+
+    // static async clearUserOnlineList() {
+    //     return await db.clearUserOnlineList();
+    // }
+};

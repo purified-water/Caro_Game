@@ -10,7 +10,7 @@ module.exports = {
             const pwHashed = await bcrypt.hash(pw,saltRounds);
             const rs = await accM.add(new accM(un,pwHashed));
             // const rs = await accM.add(new accM(un,pw))
-            console.log(rs);
+            // console.log(rs);
             res.redirect('/');
         } catch (error) {
             next(error);
@@ -26,7 +26,7 @@ module.exports = {
             if (rs) {
                 auth = await bcrypt.compare(pw, rs.Password);
             }
-            console.log(rs);
+            // console.log(rs);
             if (auth) {
                 res.redirect('/');
 

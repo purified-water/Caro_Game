@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const homeController = require('../controllers/home.c');
+const gameController = require('../controllers/game.c');
 
-router.get('/', homeController.logout);
+router.get('/', gameController.logout);
 
 module.exports = router

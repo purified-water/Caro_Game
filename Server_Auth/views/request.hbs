@@ -1,15 +1,28 @@
-<div class="d-flex align-self-center text-center p-3">
-  <h1 class="text-center">Lựa chọn thời gian giới hạn: </h1>
+<div class="d-flex align-self-center text-center p-3 justify-content-center mt-5">
+
   <form action="/request" method="post">
-    <div class="mb-5 mt-5">
-      <select class="form-select d-block m-auto" style="width: 200px; height:fit-content" name="maxage" required>
+    <h3 class="text-center fw-bold">Chọn thời gian ghi nhớ đăng nhập: </h3>
+    <div class="mb-5 mt-2" style="width: 400px;">
+      <select
+        class="form-select d-block m-auto"
+        style="width: 200px; height:fit-content"
+        name="maxage"
+        required
+      >
         <option value="15m" selected>15 phút</option>
         <option value="30m">30 phút</option>
         <option value="1h">1 giờ</option>
         <option value="12h">12 giờ</option>
       </select>
       <input type="hidden" name="username" value="{{username}}" />
-      <input type="input" name="fullname" value="{{fullname}}" />
+      <input type="hidden" name="fullname" value="{{fullname}}" />
+      <h3 class="text-center fw-bold mt-2">Chọn quyền truy cập:
+      </h3>
+      <div class="mb-5 mt-3 d-flex justify-content-evenly">
+        <input type="checkbox" name="permission" value="username" />Username
+        <input type="checkbox" name="permission" value="fullname" />Fullname
+        <input type="checkbox" name="permission" value="avatar" />Avatar
+      </div>
     </div>
     <button type="submit" class="btn btn-primary">Confirm</button>
   </form>

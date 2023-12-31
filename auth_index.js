@@ -28,6 +28,7 @@ app.use(session({
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(express.json());
 
 
 app.engine(
@@ -60,6 +61,9 @@ app.use('/request', requestRoute);
 
 const profileRoute = require('./Server_Auth/routers/profile.r');   
 app.use('/profile', profileRoute);
+
+const getUserRoute = require('./Server_Auth/routers/getUser.r');
+app.use('/get-user-by-accessToken', getUserRoute);
 
 
 const myCredential = {

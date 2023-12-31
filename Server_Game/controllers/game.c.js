@@ -20,6 +20,8 @@ module.exports = {
 
     logout: async(req, res) => {
         res.clearCookie('accessToken');
+        res.clearCookie('username');
+        res.clearCookie('fullname');
         res.redirect('/logIn');
     }
 }

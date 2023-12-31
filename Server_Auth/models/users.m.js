@@ -44,9 +44,10 @@ module.exports = {
         }
 
     },
-    getUserByToken: async function(token) {
+    getUserByToken: async function(accessToken) {
         try {
-          const user = jwt.verify(token, process.env.SECRET_KEY);
+          const user = jwt.verify(accessToken, process.env.SECRET);
+        //   console.log('user verify: ', user);
           return user;
         } catch (err) {
           return null;

@@ -1,50 +1,43 @@
-// const passport = require("passport");
-// const MyStrategy = require("../customSPP");
-// const userModel = require("../models/users.m");
-// const bcrypt = require('bcrypt');
+const passport = require("passport");
+const CustomStrategy = require("./myStrategy");
+const flash = require("express-flash");
+const User = require("../models/users.m");
 
-// passport.serializeUser((user, done) => {
-//     done(null, user.Username);
-// });
+passport.serializeUser((user, done) => {
+    // console.log('Serialize user', user);
+    done(null, user);
+});
+passport.deserializeUser(async (username, done) => {
+    // Retrieve the user from the database using the username 
 
-// passport.deserializeUser(async (username, done) => {
-//     // console.log('Username now', username);
-//     const name = username;
-//     const user = await userModel.getByUN(name);
+    const user = User.getPlayerInfos(username);
+    // console.log('DEESerialize user', user);
 
-//     if (!user) {
-//         // console.log('local passport no user');
-//         return done(null, false);
-//     }
-//     done(null, user);
-// });
+    if (user != null) {
+        done(null, user.username);
+    } else {
+        done("Invalid user", null);
+    }
+});
 
-// module.exports = app => {
-//     // app.use(passport.initialize());
-//     // app.use(passport.session());
-    
-//     // Tao strategy compare password
-//     passport.use(
-//         new MyStrategy(async (un, pw, done) => {
-//             // console.log("PASSPORT: ", un, pw);
-//             const query = await userModel.getByUN(un);
-//             const passwordInDB = query.Password;
-//             // console.log('DB PW', passwordInDB);
-//             if (!query) {
-//                 return done(null, false); // User not found
-//             }
+const verifyCallback = async (username, done) => {
+    // console.log('passport calling back', username);
+    if (username != null) {
+        const user = await User.getPlayerInfos(username);
+        if (user != null) {
+            return done(null, user.username);
+        }
+    }
+    return done(null, false);
+};
 
-//             let match = bcrypt.compareSync(pw, passwordInDB);
-//             if (match) {
-//                 // console.log('LOGGED IN');
-//                 // console.log('MATCH query', query);
-                
-//                 return done(null, query);
-//             }
-//             // done('Couldnt authenticate');
-//             done(null, false, { message: 'Incorrect password' });
-//         }, {
+const customFields = {
+    accessToken: "accessToken",
+};
 
-//         })
-//     );
-// };
+module.exports = (app) => {
+    app.use(flash());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new CustomStrategy(verifyCallback, customFields));
+};

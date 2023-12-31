@@ -13,29 +13,37 @@ const helpers = require('./Server_Game/utils/helpers');
 
 
 // Goi session
-app.use(session({
-    secret: 'mysecret',
-    resave: false,
-    saveUninitialized: true,
-}));
+const secretKey = process.env.SECRET;
+app.use(cookieParser(secretKey));
+app.use(
+    session({
+        secret: secretKey,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false,
+            maxAge: 15 * 60 * 1000,
+        },
+    })
+);
 // // Gọi passport
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-// require('./middlewares/passport')(app);
 
 app.use('/css', express.static(__dirname + '/Server_Game/public/css'));
 app.use('/js', express.static(__dirname + '/Server_Game/public/js'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(express.json());
 
 
 app.engine(
     "hbs",
     handlebar.engine({
-      extname: "hbs",
-    //   helpers,
+        extname: "hbs",
+        //   helpers,
     })
 );
 
@@ -59,6 +67,15 @@ app.use('/public', express.static(path.join(__dirname, '/Server_Game/public')));
 //     res.render('gameroom', {username: username, accessToken: accessToken, roomid: '5'})
 // })
 
+require('./Server_Game/middlewares/passport')(app);
+
+const authRoute = require('./Server_Game/routers/auth.r')();
+app.use('/', authRoute);
+
+const authMiddleware = require('./Server_Game/middlewares/authenticate');
+app.use(authMiddleware.authorize);
+console.log('Authorize called');
+
 const gameRoute = require('./Server_Game/routers/game.r');
 app.use('/', gameRoute);
 
@@ -71,8 +88,8 @@ app.use('/', gameRoute);
 // const homeRoute = require('./routers/home.r');
 // app.use('/home', homeRoute);
 
-// const signOutRoute = require('./Server_Game/routers/signOut.r');
-// app.use('/signOut', signOutRoute);
+const signOutRoute = require('./Server_Game/routers/signOut.r');
+app.use('/signOut', signOutRoute);
 
 
 // Chat socket io server
@@ -97,7 +114,7 @@ app.use('/', gameRoute);
 
 app.get('/chat', (req, res) => {
     // console.log('user chat', req.user);
-    res.render('chat', {username: req.user.Name});
+    res.render('chat', { username: req.user.Name });
 })
 
 

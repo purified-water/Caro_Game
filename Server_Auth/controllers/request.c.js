@@ -9,19 +9,20 @@ function renderRequest(req, res, next) {
     res.render("request", { username, fullname });
 }
 function postRequest(req, res, next) {
-    // Tạo token với maxage
-    const payload = {
+    // Tạo accessToken với maxage
+    const user = {
         username: req.body.username,
-        fullname: req.body.fullname
+        fullname: req.body.fullname,
+        url: `http://localhost:21588/authorize`,
     }
     console.log('Fullname in req c', req.body);
-    const token = jwt.sign(payload, process.env.SECRET, { expiresIn: req.body.maxage });
-    console.log('req c token', token);
-    // Lưu token vào cookie
-    res.cookie('accessToken', token);
+    const accessToken = jwt.sign(user, process.env.SECRET, { expiresIn: req.body.maxage });
+    console.log('req c accessToken', accessToken);
+    // Lưu accessToken vào cookie
+    res.cookie('accessToken', accessToken);
     res.cookie('username', req.body.username);
     res.cookie('fullname', req.body.fullname);
-    res.redirect(`${process.env.GAME_URL}/`);
+    res.redirect(`${user.url}?accessToken=${accessToken}`);
 }
 
 module.exports = {
